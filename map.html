@@ -3,6 +3,7 @@
 <head>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
   <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
+  <script src='vtcounties.js'></script>
   <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
   <!--[if lte IE 8]>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.ie.css' rel='stylesheet' >
@@ -15,7 +16,7 @@
 <body>
 <div id='map'></div>
 <script>
-var map = L.mapbox.map('map', 'landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2,landplanner.map-95d6y1kg', {zoomControl: false});
+var map = L.mapbox.map('map', 'landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2', {zoomControl: false});
 
 // disable drag and zoom handlers
 map.dragging.disable();
@@ -23,6 +24,45 @@ map.touchZoom.disable();
 map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 map.setView([43.888028, -71.6778415], 7)
+
+function style(feature) {
+      return {
+        weight: 0,
+        fillOpacity: 0,
+        fillColor: '#FFF'
+      };
+    }
+
+    // Set hover colors
+    function highlightFeature(e) {
+      var layer = e.target;
+      layer.setStyle({
+        weight: 4,
+        opacity: 1,
+        color: '#FFF',
+        fillOpacity: 0.6,
+        fillColor: '#FFF'
+      });
+    }
+
+    // A function to reset the colors when a neighborhood is not longer 'hovered'
+    function resetHighlight(e) {
+      geojson.resetStyle(e.target);
+    }
+
+    // Tell MapBox.js what functions to call when mousing over and out of a neighborhood
+    function onEachFeature(feature, layer) {
+      layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight
+      });
+    }
+
+    // Add vector data to map
+    geojson = L.geoJson(counties, {
+      style: style,
+      onEachFeature: onEachFeature
+    }).addTo(map);
 </script>
 </body>
 </html>
