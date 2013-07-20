@@ -20,20 +20,11 @@
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
-    <!--Find this piece, as well as the HTML shiv above-->
-    <link rel="shortcut icon" href="../assets/ico/favicon.png">
 	<style>
-		#holder {
-			height: 480px;
-			left: 50%;
-			margin: -240px 0 0 -320px;
-			position: absolute;
-			top: 50%;
-			width: 640px;
-		}
-    #map { width:432px; height:412px; }
+
+
 	</style>
   </head>
 
@@ -68,16 +59,18 @@
 
 
       <div class="featurette">
-        <img class="featurette-image pull-right img-polaroid" src="http://farm3.staticflickr.com/2833/9274361300_76148e28f9_n.jpg">
+        <img class="featurette-image pull-right img-polaroid" src="img/card1.png">
         <h2 class="featurette-heading">Methods: <span class="muted">Analog to digital</span></h2>
         <p class="lead">We created a survey with questions about email and social media usage. We then printed up a postcard with a link to the online survey as well as a QR code that would take users directly to it.  A hard copy was placed in each legislator's mailbox at the capital, then 3 supportive house members and a Senator assisted us with outreach to colleagues on the floor. We collected survey responses for three weeks.</p>
       </div>
 
 
       <div class="featurette">
-        <div id='map'class="pull-left featurette-image"></div>
+        <div class="map pull-left featurette-image">
+               
+        </div>
         <h2 class="featurette-heading">Who responded?</h2>
-        <p class="lead">42 out of 180 legislators (150 in the house, 30 in the senate) completed the survey, for a response rate of 23%. The rate varied geographically from no responses in Grand Isle to half the Caledonia delegation.</p>
+        <p class="lead">42 out of 180 legislators (150 in the house, 30 in the senate) completed the survey, for a response rate of 23%. The rate varied geographically from no responses in Grand Isle to half the Caledonia delegation.</p><a href="http://a.tiles.mapbox.com/v3/landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2.html#8/43.888028/-71.6778415" class="btn btn-info btn-small map-link">View Full Map</a> 
       </div>
 
       <hr class="featurette-divider">
@@ -131,7 +124,7 @@
   
          <ul class="inline">
         <li><h2><span class="muted">Got questions or ideas for follow up?</span></h2></li>
-        <li><a href="mailto:info@geosprocket.com" class="btn btn-primary btn-large">Get in touch</a></li>
+        <li><a href="mailto:amanda@thirdspaceconsulting.net" class="btn btn-primary btn-large">Get in touch</a></li>
         </ul>
   
 
@@ -145,30 +138,57 @@
 
       <!-- FOOTER -->
       <footer>
-        <p>by <a href="http://geosprocket.com" target="_blank">Geosprocket LLC</a> &middot; <a href="http://www.thirdspaceconsulting.net/ThirdSpace_Consulting/Home.html" target="_blank">Thirdspace Consulting</a></p>
+        <p>by <a href="http://wboykinm.github.io/vttwg" target="_blank">the Vermont Technology Working Group, </a>2013</p>
       </footer>
 
     </div><!-- /.container -->
 
 
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- El Javascriptcito -->
     
     <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
-    <script>
-        var map = L.mapbox.map('map', 'landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2', {zoomControl: false});
-
-        // disable drag and zoom handlers
-        map.dragging.disable();
-        map.touchZoom.disable();
-        map.doubleClickZoom.disable();
-        map.scrollWheelZoom.disable();
-        map.setView([43.888028, -71.6778415], 7)
-    </script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <!--ID What the hell is going on with this lib-->
+    <!--Adaptive map script, cobbled from Brad Frost-->
+    <script>
+      $(document).ready(function(){
+        buildMap();
+      });
+       
+      var sw = document.body.clientWidth,
+          bp = 550,
+          $map = $('.map');
+      var static = "http://api.tiles.mapbox.com/v3/landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2,landplanner.map-95d6y1kg/-72.57,43.88,7/220x350.png";
+      var embed = "<iframe width='432' height='412' src='map.html'></iframe>";
+       
+      function buildMap() {
+        if(sw>bp) { //If Large Screen
+            if($('.map-container').length < 1) { //If map doesn't already exist
+              buildEmbed();
+            }
+        } else {
+            if($('.static-img').length < 1) { //If static image doesn't exist
+              buildStatic();
+            }
+        }
+      };
+       
+      function buildEmbed() { //Build iframe view
+          $('<div class="map-container"/>').html(embed).prependTo($map);
+      };
+        
+      function buildStatic() { //Build static map
+         var mapLink = $('.map-link').attr('href'),
+             $img = $('<img class="static-img img-polaroid" />').attr('src',static);
+         $('<a/>').attr('href',mapLink).html($img).prependTo($map); 
+      }
+       
+      $(window).resize(function() {
+        sw = document.body.clientWidth;
+        buildMap();
+      });
+   
+    </script>
   </body>
 </html>

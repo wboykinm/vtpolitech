@@ -19,11 +19,11 @@
 }
  
 iframe {
-   max-width: 100%; 
+   max-width: 432px; 
 }
 /* From http://codepen.io/chriscoyier/full/kycDp */
 .map-container {
-  width: 100%;
+  width: 432px;
   margin: 0 auto;
   height: 0;
   padding-top: 0%;
@@ -58,7 +58,7 @@ iframe {
 <!--Pattern HTML-->
   <div id="pattern" class="pattern">
     <div class="map">
-      <a href="http://a.tiles.mapbox.com/v3/landplanner.map-1sdx5y5e.html#9/14.031578144890714/-88.89312744140625" class="btn map-link">View Map</a>
+      <a href="http://a.tiles.mapbox.com/v3/landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2.html#8/43.888028/-71.6778415" class="btn map-link">View Map</a>
     </div>
   </div>
   <!--End Pattern HTML-->
@@ -80,7 +80,7 @@ var sw = document.body.clientWidth,
     bp = 550,
     $map = $('.map');
 var static = "http://api.tiles.mapbox.com/v3/landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2,landplanner.map-95d6y1kg/-72.57,43.88,7/220x350.png";
-var embed = "<iframe width='980' height='650' src='http://a.tiles.mapbox.com/v3/landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2.html#7/43.88/-72.57'></iframe>";
+var embed = "<iframe width='432' height='412' src='http://a.tiles.mapbox.com/v3/landplanner.map-cbd2kp8k,landplanner.vtpoltech_counties,landplanner.vtmask2.html#7/43.888028/-71.6778415'></iframe>";
  
 function buildMap() {
   if(sw>bp) { //If Large Screen
